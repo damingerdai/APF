@@ -5,7 +5,7 @@ This document describes the structure and format of the Angular framework packag
 
 本文档描述当前npm可获取的Angular工具库的结构和格式。本格式适用于分发Angular组建包(比如[Angular Material](https://github.com/angular/components))，也适用于发布在 *@angular* 命名空间下的核心框架包，比如 *@angular/core* 和 *@angular/forms*。
 
-The format described here uses a distinct like file layout and metadata configuration that enables a package to work seamlessly under most common scenarios where Angular is used, and makes it compatible with the tooling offered bu the Angular team and the community itself. For the reason, third-party library developers are also strongly encouraged to follow the same structure.
+The format described here uses a distinct like file layout and metadata configuration that enables a package to work seamlessly under most common scenarios where Angular is used, and makes it compatible with the tooling offered by the Angular team and the community itself. For the reason, third-party library developers are also strongly encouraged to follow the same structure.
 
 The versioning of the format is aligned with the versioning of Angular itself  and we expect the format to evolve in forward-compatible way to support the needs of the Angular component and tool ecosystem.
 
