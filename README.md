@@ -7,6 +7,8 @@ This document describes the structure and format of the Angular framework packag
 
 The format described here uses a distinct like file layout and metadata configuration that enables a package to work seamlessly under most common scenarios where Angular is used, and makes it compatible with the tooling offered by the Angular team and the community itself. For the reason, third-party library developers are also strongly encouraged to follow the same structure.
 
+这里所描述的格式使用了截然不同的文件布局和元数据配置，能使得程序包在使用Angular绝大多数的情况下无缝对接，也能于由Angular团队和社区提供的工具链兼容。因此，强烈建议建议第三方库的开发者遵循相同的结构。
+
 The versioning of the format is aligned with the versioning of Angular itself  and we expect the format to evolve in forward-compatible way to support the needs of the Angular component and tool ecosystem.
 
 # Useful Community Resources
