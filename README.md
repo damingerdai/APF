@@ -14,11 +14,19 @@ The versioning of the format is aligned with the versioning of Angular itself  a
 格式的版本化与Angular自身的版本号保持一致，同时我们希望格式能够以向前兼容的方式发展，以满足Angular组件和工具生态系统的需求。
 
 # Useful Community Resources
+# 可用的社区资源
+
 Juri Strumpflohner covered the Angular Package Format in depth in his ng-be 2017 talk [Create and publish Angular libs like a Pro](https://www.youtube.com/watch?v=K4YMmwxGKjY).
+
+Juri Strumpflohner在他的*ng-be 2017*演讲《像Pro那样创建和发布Angular库》中深入介绍了Angular包格式。
 
 There are two community tools that helps with the process of scaffolding a library project and setting up the build system:
 * Jurgen Van de Moere created a Yeoman generator [generator-angular2-library](https://github.com/jvandemo/generator-angular2-library).
 * David Herges created [ng-packagr](https://github.com/dherges/ng-packagr) which allows libraries to be built and packaged using a single command.
+
+这里有两个社区工具，可以帮助构建库项目和设置构建系统的过程：
+* Jurgen Van de Moere创建了一个Yeoman生成器[generator-angular2-library](https://github.com/jvandemo/generator-angular2-library)。
+* David Herges创建了[ng-packagr](https://github.com/dherges/ng-packagr)，它允许使用一个命令构建和打包库。
 
 # Purpose of the package Format
 In today's JavaScript landscape, developers will consume packages in many different ways. For example, some may use SystemJS, others could use Webpack, Still, others might consume packages in Node or maybe in the browser as a UMD bundle or through global variable access.
