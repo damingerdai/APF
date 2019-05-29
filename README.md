@@ -11,6 +11,8 @@ The format described here uses a distinct like file layout and metadata configur
 
 The versioning of the format is aligned with the versioning of Angular itself  and we expect the format to evolve in forward-compatible way to support the needs of the Angular component and tool ecosystem.
 
+格式的版本化与Angular自身的版本号保持一致，同时我们希望格式能够以向前兼容的方式发展，以满足Angular组件和工具生态系统的需求。
+
 # Useful Community Resources
 Juri Strumpflohner covered the Angular Package Format in depth in his ng-be 2017 talk [Create and publish Angular libs like a Pro](https://www.youtube.com/watch?v=K4YMmwxGKjY).
 
