@@ -29,9 +29,15 @@ There are two community tools that helps with the process of scaffolding a libra
 * David Herges创建了[ng-packagr](https://github.com/dherges/ng-packagr)，它允许使用一个命令构建和打包库。
 
 # Purpose of the package Format
-In today's JavaScript landscape, developers will consume packages in many different ways. For example, some may use SystemJS, others could use Webpack, Still, others might consume packages in Node or maybe in the browser as a UMD bundle or through global variable access.
+# 包格式的目地
+
+In today's JavaScript landscape, developers will consume packages in many different ways. For example, some may use SystemJS, others could use WebPack, Still, others might consume packages in Node or maybe in the browser as a UMD bundle or through global variable access.
+
+在现在的JavaScript的环境下，开发者可以以许多不同的方式使用包。比如，有些人可能会使用**SystemJS**，另外一些人会使用**WebPack**，还有一些人可能会在Node或者在浏览器中以**UMD**包的方式使用或者通过全局变量访问使用包。
 
 The Angular distribution packages supports all of the commonly used development tools and workflow, and adds emphasis on optimizations that result either in smaller application payload size for faster development iteration cycle (build time).
+
+Angular分发包支持所有的常用开发工具和工作流，并且强调优化，以获得更小的应用程序负载大小，从而加快开发迭代周期(构建时间)。
 
 # File layout
 This is an abbreviated version of the **@angular/core** package with explanation of the purpose of various files.
