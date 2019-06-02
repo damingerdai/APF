@@ -40,10 +40,15 @@ The Angular distribution packages supports all of the commonly used development 
 Angular分发包支持所有的常用开发工具和工作流，并且强调优化，以获得更小的应用程序负载大小，从而加快开发迭代周期(构建时间)。
 
 # File layout
+# 文件布局
+
 This is an abbreviated version of the **@angular/core** package with explanation of the purpose of various files.
 
-> Note: in APF v6 and before. each entry point would have a 'src' directory next to the *.d.ts* entry point. This is still allowed in v8, but we now prefer to run the *.d.ts* bundler tool from [https://api-extractor.com](https://api-extractor.com) so that the entire API appears in a single file. This avoids users finding deep-import paths offered bu their editor and accidentally importing private symbols form them.
+这是**@angular/core**包的一个简化版本，用于解释不同文件的目的。
 
+> Note: in APF v6 and before. each entry point would have a 'src' directory next to the *.d.ts* entry point. This is still allowed in v8, but we now prefer to run the *.d.ts* bundler tool from [https://api-extractor.com](https://api-extractor.com) so that the entire API appears in a single file. This avoids users finding deep-import paths offered by their editor and accidentally importing private symbols form them.
+
+> 注意： 在APFv6版本以及之前的版本中，每一个入口点会在*.d.ts*入口点附近有一个‘src’目录。在v8版本中这仍然是被允许。但是我们现在更喜欢运行来自[https://api-extractor.com](https://api-extractor.com) *.d.ts* 打包工具，这样全部的API将会打包进一个单一文件里面。这将避免了用户发现编辑器提供的深度导入路径，并意外地从编辑器中导入私有符号。
 
 ```
 node_modules/@angular/core           -- Package root
@@ -104,9 +109,81 @@ node_modules/@angular/core           -- Package root
 |   |   +--  es2015: ./es2015/testing.js
 ```
 
+```
+node_modules/@angular/core           -- 项目根目录
++-- README.md                        -- 给npmjs页面使用的Readme文件
+|                         
++-- esm2015
+|   +-- core                         -- 包含单个内部模块的目录
+|   |   +-- ***.js                   -- 模块 - 这些文件的所有路径都是私有api。
+|   +-- testing                      -- 和“core”目录相似，但是用于次要入口点
+|   |   +-- ***.js                   -- 同上
+|   +-- core.js (ESM/ES2015)         -- 将所有符号重新导出到core目录下的公共模块
+|   +-- core.js.map                  -- source map文件
+|   +-- testing.js                   -- 将所有符号重新导出到testing目录下的公共模块
+|   +-- testing.js.map               -- source map文件
+|
++-- esm5                             -- ESM+ES5分发。这个目录应该和ESM2015目录保持一致
+|   +-- core.js (ESM/ES5)           
+|   +-- core.js.map
+|   +-- testing.js
+|   +-- testing.js.map
+|   
++-- fesm2015                        -- 包含fesm2015文件的目录
+|   +-- core.js (ESM/ES2015)        -- ESM+ES2015 flat 模块 (fesm)
+|   +-- core.js.map                 -- source map文件（所有js文件都存在对应的映射文件）
+|   +-- testing.js                  -- 在@angular/core包中的次要入口点
+|   +-- testing.js.map
+|   
++-- fesm5                           -- 包含fesm2015文件的目
+|   +-- core.js (ESM/ES5)           -- ESM+ES2015 flat 模块 (fesm)
+|   +-- core.js.map                 -- source map文件（所有js文件都存在对应的映射文件）
+|   +-- testing.js                  -- 在@angular/core包中的次要入口点
+|   +-- testing.js.map
+|
++-- bundles                         -- 包含所有包（UMD/ES5）的目录
+|   +-- core.umd.js                 -- 主要包， 文件名: $PKGNAME.umd.js
+|   +-- core.umd.min.js             -- 主要压缩包. 文件名: $PKGNAME.umd.min.js
+|   +-- core-testing.umd.js         -- 前缀为“$PKENAME-”的次要包
+|   +-- core-tesint.umd.min.js      -- 压缩后的次要包
+|
++-- package.json                    -- 主要的package.json，包含左边列出的键，指向类型根以及主包和flat模块
++-- typings: ./core.d.ts
++--    main: ./bundles/core.umd.js
++--  module: ./esm5/core.js
++--  es2015: ./esm2015/core.js
+|
++-- core.d.ts                       -- 基本flattened类型定义
++-- core.metadata.json              -- AOT编译器使用的元数据
++-- testing.d.ts                    -- 重新导出.d.ts文件的次要入口点
++-- testing.metadata.json           -- 次要入口点元数据
+|
++-- testing
+|   +-- testing.d.ts                -- 次要flattened类型定义
+|   +-- testing.metadata.json       -- 次要入口点目录目录（测试，动画等
+|   +-- package.json
+|   |   +-- typings: ./testing.d.ts
+|   |   +--    main: ./bundles/core-testing.umd.js
+|   |   +--  module: ./esm5/testing.js
+|   |   +--  es2015: ./es2015/testing.js
+```
+
 This package layout allows us to support the following usage-scenarios and environments:
 
+这个包布局允许我们支持以下的使用场景和环境：
+
 | Builder / Bundler / Consumer | Module Format | Primary Entry Point resolves to | Secondary Entry Point resolves to |
+| - | - | - | - |
+| WebPack(optimized)/Closure Compiler | ESM+ES2015(flattened) | fesm2015/core.js | fesm2015/testing.js |
+| CLI/Rollup/Wepack | ESM+ES5(flattened) | fesm5/core.js | fesm5/testing.js |
+| WebPack v4(optimized) | ESM+ES2015 | esm2015/core.js | esm2015/testing/testing
+| WebPack v4 | ESM+ES5 | esm5/core.js | esm5/testing/testing.js |
+| Plunker/Fiddle/ES5/script tag | UMD | requires manual resolution by the developer to : <br/> bundles/core.umd.js and bundles/core.umd.min.js | requires manual resolution by the developer to: <br/> bundles/core-testing.umd.js |
+| Nodejs | UMD | bundles/core.umd.js | bundles/core-testing.umd.js |
+| TypeScript | ESM+d.ts | core.d.ts | testing/testing.d.ts |
+| AOT compilation | .metadata.json | @angular/core/core.metadata.json | @angular/core/testing.metadata.json |
+
+| 构建器 / 打包工具 / 使用者 | 模块格式 | 主入口点解析 | 次要入口点解析 |
 | - | - | - | - |
 | WebPack(optimized)/Closure Compiler | ESM+ES2015(flattened) | fesm2015/core.js | fesm2015/testing.js |
 | CLI/Rollup/Wepack | ESM+ES5(flattened) | fesm5/core.js | fesm5/testing.js |
