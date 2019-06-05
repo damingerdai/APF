@@ -276,7 +276,7 @@ The sources for this package are in the main [Angular](https://github.com/angula
 
 License: MIT
 
- > 此处不打算翻译
+ > 此处不打算翻译该段标题和**@angular/core** 包的readme文件内容
 
 # Primary Entry-points
 Primary entry point of the package is the module with module id matching the name of the package (e.g. for **@angular/core** package, the import from the primary entry-point looks like: import { Component, ... } from '@angular/core').
