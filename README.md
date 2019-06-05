@@ -44,7 +44,7 @@ Angular分发包支持所有的常用开发工具和工作流，并且强调优�
 
 This is an abbreviated version of the **@angular/core** package with explanation of the purpose of various files.
 
-这是**@angular/core**包的一个简化版本，用于解释不同文件的目的。
+这是 **@angular/core** 包的一个简化版本，用于解释不同文件的目的。
 
 > Note: in APF v6 and before. each entry point would have a 'src' directory next to the *.d.ts* entry point. This is still allowed in v8, but we now prefer to run the *.d.ts* bundler tool from [https://api-extractor.com](https://api-extractor.com) so that the entire API appears in a single file. This avoids users finding deep-import paths offered by their editor and accidentally importing private symbols form them.
 
@@ -195,15 +195,27 @@ This package layout allows us to support the following usage-scenarios and envir
 | AOT compilation | .metadata.json | @angular/core/core.metadata.json | @angular/core/testing.metadata.json |
 
 # Library File layout
+# 库文件布局
+
 Libraries should use generally the same layout, but there are characteristics in libraries that are different from the Angular framework.
 
-Typically libraries are split at the component or functional level. Let's take an example such as Angular' Material project.
+库应使用相同的布局，但是库中有一些与 **Angular框架** 不同的特性。
+
+Typically libraries are split at the component or functional level. Let's take an example such as Angular's Material project.
+
+通常库是按照组件或者功能级别来划分的。让我们以Angular的Material为例。
 
 Angular Material published sets of components such as **Button**(a single component), **Tabs**(a set of components that work together), etc. The common ground is the **NgModule** that binds these functional areas together. There is a single **NgModule** for **Button**, another for **Tabs**, and so on.
 
-The general rule in the Angular Package Format is to produce a FESM file for the smallest set of logically connected code. For example, the Angular package has a single FESM for **@angular/core**. When a developer uses the Component symbol in **@angular/core** there are transitive dependencies such as **Injectable**, **View**, **Renderer**, etc. Therefore all these pieces are bundle together into a single a FESM. For most libraries, this common bundling point would be an **NgModule**
+Angular Material发布了一系列的组件，比如 **Button**（一个单个组件），**Tabs**（一组相互工作的组件），等等。其共同点是将这些功能区域绑定在一起的 **NgModule**。**Button** 有一个 **NgModule**，**Tabs** 也有一个，以此列推。
 
-There is an example of how the Angular Material project would project would look in this format:
+The general rule in the Angular Package Format is to produce a FESM file for the smallest set of logically connected code. For example, the Angular package has a single FESM for **@angular/core**. When a developer uses the Component symbol in **@angular/core** there are transitive dependencies such as **Injectable**, **View**, **Renderer**, etc. Therefore all these pieces are bundle together into a single a FESM. For most libraries, this common bundling point would be an **NgModule** .
+
+在Angular包格式中，一般规则就是为最小的逻辑链接代码集合生成一份FESM文件。比如,Angular包里有一个  **@angular/core** 的FESM文件。当开发者使用在 **@angular/core** 下的Component符号时，会有一些传递性依赖，比如 **Injectable**, **View**, **Renderer** 等等。因此所有的部件将会一起打包进一个FESM文件里面。对于绝大多数的库，这个常见的捆绑点就是一个  **NgModule** 。
+
+There is an example of how the Angular Material project would look in this format:
+
+这里有一个关于Angular Material项目如何以这种格式显示的示例：
 
 ```
 node_modules/@angular/material
