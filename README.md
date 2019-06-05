@@ -260,15 +260,22 @@ node_modules/@angular/material
 ```
 
 # README.md
-The readme file is used to display marked up  description of a package on npm and github.
+The readme file is used to display marked up description of a package on npm and github.
+
+readme文件用于在npm和github上显示标记描述。
 
 Example readme content of **@angular/core** package:
-* Angular
+
+下面是 **@angular/core** 包的readme文件内容：
+
+*Angular*
 ========
 
 The sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.
 
 License: MIT
+
+ > 此处不打算翻译
 
 # Primary Entry-points
 Primary entry point of the package is the module with module id matching the name of the package (e.g. for **@angular/core** package, the import from the primary entry-point looks like: import { Component, ... } from '@angular/core').
