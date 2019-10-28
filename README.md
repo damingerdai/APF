@@ -279,9 +279,16 @@ License: MIT
  > 此处不打算翻译该段标题和 **@angular/core** 包的readme文件内容
 
 # Primary Entry-points
+# 主要入口点
+
 Primary entry point of the package is the module with module id matching the name of the package (e.g. for **@angular/core** package, the import from the primary entry-point looks like: import { Component, ... } from '@angular/core').
 
+包的主要入口点是一个带有匹配包名的模块id的模块（比如，对 **@angular/core** 来说， 来自其主要入口点的倒入看上去像：import { Component, ... } from '@angular/core'）。
+
 The primary entry-points is configured primarily via the package.json in the package root via the following properties:
+
+主要入口点主要是通过在库的根目录中使用以下配置在package.json中配置的。
+
 ```
 {
   "name": "@angular/core",
@@ -298,6 +305,18 @@ The primary entry-points is configured primarily via the package.json in the pac
 ```
 
 | Property Name | Purpose |
+| - | - |
+| module | Tools consuming ESM+ES5(CLI, WebPack, Rollup). This entry-point currently points these tools to fesm5. |
+| es2015 | Property is usesd by tools cunsuming ESM+ES2015(Closure, custom Webpack build). This entry-point currently points these tools to fesm2015. |
+| fesm5 | Points to the entry-point for the flattened ESM+ES5 distribution. |
+| fesm2015 | Points to the entry-point for the flattened ESM+ES2015 distribution. |
+| esm5 | Points to the entry-point for the unflattened ESM+ES5 distribution. |
+| ems2015 | Points to the entry-point for the unflattened ESM+ES2015 distribution. |
+| main | Node.js |
+| typings | typescript compiler (tsc) |
+| sideEffects | webpack v4+ speific flag to enable advanced optimizations and code splitting. |
+
+| 属性名 | 目标 |
 | - | - |
 | module | Tools consuming ESM+ES5(CLI, WebPack, Rollup). This entry-point currently points these tools to fesm5. |
 | es2015 | Property is usesd by tools cunsuming ESM+ES2015(Closure, custom Webpack build). This entry-point currently points these tools to fesm2015. |
@@ -440,21 +459,55 @@ The [Closure compiler](https://developers.google.com/closure/compiler/) is the m
 * [filipesilva/angular-quickstare-lib](https://github.com/filipesilva/angular-quickstart-lib)
 
 # Definition of Terms
+# 名词解释
+
 The following terms are used throughout this document very intentionally. In this section we define all of them to provide additional clarity.
+本文档使用了以下的专有名词。为了方便读者明确这些专有名词的意思，这些在本章节中，我们将对这些专有名词进行解释。（意译）
 
 **Package** - the smallest set of files that are published to NPM and installed together, for example @angular/core. This package includes a manifest called package.json, compiled source code, typescript definition files, source maps, metadata, etc. The package is installed with **npm install @angular/core**.
+
+**包** - 可以发布到npm并下载安装的一组最小文件集合。 比如**@angular/core**，这个包包含了一个名为package.json的清单文件，编译后的源代码，typescript的声明文件，source map映射文件，metadata元数据文件等。我们可以使用**npm install @angular/core**命令下载该包。
+
 **Symbol** - a class, function, constant or variable contained in a module and optionally made visible to the external world via a module export.
+
+**符号** - 模块中包含的类、函数、常量或变量，可以选择通过模块导出对外可见。
+
 **Module** - Short for ECMAScript Modules. A file containing statements that import and export symbols. This is identical to the definition of [modules in the ECMAScript spec](http://www.ecma-international.org/ecma-262/6.0/#sec-modules).
+
+**模块** - ECMAScript Modules的缩写。包含导入导出符号的语句的文件。这里与[ECMAScript规范](http://www.ecma-international.org/ecma-262/6.0/#sec-modules)中定义是一致的。
+
 **ESM** - short for ECMAScript Modules (see above).
+
+**ESM** - ECMAScript Modules的缩写(同上)。
+
 **FESM** - short for Flattened ES Modules and consists of a file format created by flattening all ES Modules accessible from an entry-point into a single ES Module.
+
+**FESM** - Flattened ES Modules的缩写，由一种文件格式组成，该文件格式通过将所有可从入口点访问的ES模块平坦化为单个ES模块来创建。（有道翻译）
+
 **Module ID** - the identifier of a module used in the import statements, e.g. "@angular/core". The ID often maps directly to a path on filesystem, but this is not always the case due to various module resolution strategies.
-**Module Resoltion Strategy** - algorithm used to convert Module IDs to paths on the filesystem. Nodejs has one that is [well specified](https://nodejs.org/api/modules.html#modules_all_together) and widely used, TypeScript supports [several module resolution strategies](https://www.typescriptlang.org/docs/handbook/module-resolution.html). Closure has [yet another strategy](https://github.com/google/closure-compiler/wiki/JS-Modules).
+
+**模块 ID** - 在import语句中使用的模块的标识符，比如"@angular/core"。该ID通常直接映射到文件系统上的路径，但是在不同的模块解析策略上，情况并非总是如此。
+
+**Module Resolution Strategy** - algorithm used to convert Module IDs to paths on the filesystem. Nodejs has one that is [well specified](https://nodejs.org/api/modules.html#modules_all_together) and widely used, TypeScript supports [several module resolution strategies](https://www.typescriptlang.org/docs/handbook/module-resolution.html). Closure has [yet another strategy](https://github.com/google/closure-compiler/wiki/JS-Modules).
+
+**模块解析策略** - 用于将模块IDs转化为文件系统上路径的算法。Nodejs拥有一个指定好并广泛使用的[模块解析策略](https://nodejs.org/api/modules.html#modules_all_together)。TypeScript支持不同的[模块解析策略](https://www.typescriptlang.org/docs/handbook/module-resolution.html)。Closure也有另外一种的[策略](https://github.com/google/closure-compiler/wiki/JS-Modules)。
+
 **Module Format** - specification of the module syntax that covers at minimum the syntax for the importing and exporting form a file. Common module formats are CommonJS(CJS, typically used for Node.js applications) or ECMAScript Modules(ESM). The module format indicates only the packaging of the individual modules, but not the JavaScript language features used to make up  the module content. Because of this, the Angular team often uses the language level specifier as a suffix to the module format, e.g. ESM+ES5 specifies that module is in ESM format and contains code down-leveled toES5. Other commonly used combos: ESM+ES2015, CJS+ES5, and CJS+ES2015.
+
+**模块格式** -模块语法规范，至少要包含一个从一个文件导入、导出的语法。常见的模块格式有CommonJS(CJS)、ECMAScript Modules(ESM)。
+
 **Bundle** - an  artifact in the form of a single JS file, produced by a build tool, e.g. WebPack or Rollup, that contains symbols originating in core or more modules. Bundles are a browser-specific workaround that reduce network strain that would be caused if browsers were start downloading hundreds if not tens of the thousands of files. Node.js typically doesn't use bundles. Common bundle formats are [UMD](https://github.com/umdjs/umd) and [System.register](https://github.com/ModuleLoader/es-module-loader/blob/master/docs/system-register.md).
+
 **Language Level** - The language of the code (ES5 or ES2015). Independent of the module format.
+
 **Entry Point** - a module intended to be imported by the user. It is referenced by a unique module ID and exports the public API referenced by that module ID. A example is *@angular/core* and *@angular/core/testing*. Both entry points exist in the *@angular/core* package, but they export different symbols. A package can have many entry points.
+
 **Deep Import** - process of retrieving symbols from modules that are not Entry Points. These module IDs are usually considered to be private APIs that can change over the lifetime of the project or while the bundle for the given package is being created.
+
 **Top-Level Import** - an import coming from an entry point. The available top-level imports are what define the public API and are exposed in *"@angular/name"* modules, such as *@angular/core* or *@angular/common*.
+
 **Tree-shaking** - process of identifying and removing code not used by an application - also known as dead code elimination. This is a global optimization performed at the application level using tools like Rollup, Closure Compiler, or Uglify.
+
 **Aot Compiler** - the [Ahead of Time Compiler](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html) for Angular.
+
 **Flattened Type Definitions** - the bundled TypeScript definitions generated from [api-extractor](https://api-extractor.com/)
